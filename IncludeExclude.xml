@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration urlid="http://www.microsoft.com/migration/1.0/migxmlext/CH2MFiles">
+  <!-- This component unconditionally excludes spcific file/folders-->
+  <component type="Documents" context="System">
+    <displayName>Component to include / exclude specific items</displayName>
+    <role role="Data">
+      <rules>
+        <unconditionalExclude>
+          <objectSet>
+            <pattern type="File">%CSIDL_PROGRAM_FILES%\* [*]</pattern>
+            <pattern type="File">%CSIDL_PROGRAM_FILESX86%\* [*]</pattern>
+            <pattern type="File">%TEMP%\* [*]</pattern>
+            <pattern type="File">%TMP%\* [*]</pattern>
+            <pattern type="File">%CSIDL_WINDOWS%\* [*]</pattern>
+            <pattern type="File">%CSIDL_PROGRAMS%\* [*]</pattern>
+            <pattern type="File">%CSIDL_STARTMENU%\* [*]</pattern>
+            <pattern type="File">%CSIDL_STARTUP%\* [*]</pattern>
+            <pattern type="File">%CSIDL_APPDATA%\AutoDesk [*]</pattern>
+            <pattern type="File">%CSIDL_APPDATA%\Bentley [*]</pattern>
+            <pattern type="File">%systemdrive%\Dell\* [*]</pattern>
+            <pattern type="File">%systemdrive%\Drivers\* [*]</pattern>
+            <pattern type="File">%systemdrive%\Temp\* [*]</pattern>
+            <pattern type="File">%systemdrive%\i386\* [*]</pattern>
+            <pattern type="File">%systemdrive%\{FileKeeper}\* [*]</pattern>
+            <pattern type="File">%systemdrive%\MSOCache\* [*]</pattern>
+            <pattern type="File">%systemdrive%\PerfLogs\* [*]</pattern>
+            <pattern type="File">%systemdrive%\* [*.ost]</pattern>
+            <pattern type="File">%systemdrive%\Proj\* [*]</pattern>
+            <pattern type="File">%systemdrive%\PW_Resource\* [*]</pattern>
+            <pattern type="File">%systemdrive%\PW_workdir\* [*]</pattern>
+            <pattern type="File">%systemdrive%\cadtools\* [*]</pattern>
+            <pattern type="File">%systemdrive%\_apps\* [*]</pattern>
+            <pattern type="File">%systemdrive%\* [*.mp3]</pattern>
+            <pattern type="File">%systemdrive%\_Global resources\* [*]</pattern>
+          </objectSet>
+        </unconditionalExclude>
+      </rules>
+    </role>
+  </component>
+  <!-- This component migrates printer mappings-->
+  <component type="System">
+    <displayName>This should migrate the users Printers key</displayName>
+    <role role="Settings">
+      <rules context="UserAndSystem">
+        <include>
+          <objectSet>
+            <pattern type="Registry">HKCU\Printers\* [*]</pattern>
+          </objectSet>
+        </include>
+      </rules>
+    </role>
+  </component>
+  <!-- This component migrates wallpaper settings -->
+  <component type="System" context="User">
+    <displayName>Wallpapers</displayName>
+    <role role="Settings">
+      <rules>
+        <include>
+          <objectSet>
+            <pattern type="Registry">HKCU\Control Panel\Desktop [Pattern]</pattern>
+            <pattern type="Registry">HKCU\Control Panel\Desktop [PatternUpgrade]</pattern>
+            <pattern type="Registry">HKCU\Control Panel\Desktop [TileWallpaper]</pattern>
+            <pattern type="Registry">HKCU\Control Panel\Desktop [WallPaper]</pattern>
+            <pattern type="Registry">HKCU\Control Panel\Desktop [WallpaperStyle]</pattern>
+            <pattern type="Registry">HKCU\Software\Microsoft\Windows\CurrentVersion\Themes [SetupVersion]</pattern>
+            <pattern type="Registry">HKCU\Software\Microsoft\Internet Explorer\Desktop\General [BackupWallpaper]</pattern>
+            <pattern type="Registry">HKCU\Software\Microsoft\Internet Explorer\Desktop\General [TileWallpaper]</pattern>
+            <pattern type="Registry">HKCU\Software\Microsoft\Internet Explorer\Desktop\General [Wallpaper]</pattern>
+            <pattern type="Registry">HKCU\Software\Microsoft\Internet Explorer\Desktop\General [WallpaperFileTime]</pattern>
+            <pattern type="Registry">HKCU\Software\Microsoft\Internet Explorer\Desktop\General [WallpaperLocalFileTime]</pattern>
+            <pattern type="Registry">HKCU\Software\Microsoft\Internet Explorer\Desktop\General [WallpaperStyle]</pattern>
+            <content filter="MigXmlHelper.ExtractSingleFile(NULL, NULL)">
+              <objectSet>
+                <pattern type="Registry">HKCU\Control Panel\Desktop [WallPaper]</pattern>
+                <pattern type="Registry">HKCU\Software\Microsoft\Internet Explorer\Desktop\General [BackupWallpaper]</pattern>
+                <pattern type="Registry">HKCU\Software\Microsoft\Internet Explorer\Desktop\General [Wallpaper]</pattern>
+              </objectSet>
+            </content>
+          </objectSet>
+        </include>
+      </rules>
+    </role>
+  </component>
+  <!-- This component migrates wallpaper files -->
+  <component type="Documents" context="User">
+    <displayName>Move JPG and BMP</displayName>
+    <role role="Data">
+      <rules>
+        <include>
+          <objectSet>
+            <pattern type="File"> %windir% [*.bmp]</pattern>
+            <pattern type="File"> %windir%\web\wallpaper [*.jpg]</pattern>
+            <pattern type="File"> %windir%\web\wallpaper [*.bmp]</pattern>
+          </objectSet>
+        </include>
+      </rules>
+    </role>
+  </component>
+  <!-- This component migrates Excel Macros -->
+  <component type="Documents" context="User">
+    <displayName>Move XLStart</displayName>
+    <role role="Data">
+      <rules>
+        <include>
+          <objectSet>
+	          <pattern type="File">%CSIDL_APPDATA%\Microsoft\Excel\XLSTART [*]</pattern>
+          </objectSet>
+        </include>
+      </rules>
+    </role>
+  </component>
+<!-- This component migrates Google Settings -->
+  <component type="Documents" context="User">
+    <displayName>Move Google Settings</displayName>
+    <role role="Data">
+      <rules>
+        <include>
+          <objectSet>
+	          <pattern type="File">%CSIDL_LOCAL_APPDATA%\Google\Chrome\User Data\Default [*]</pattern>
+          </objectSet>
+        </include>
+      </rules>
+    </role>
+  </component>
+<!-- This component migrates Sticky Notes -->
+  <component type="Documents" context="User">
+    <displayName>Move Sticky Notes</displayName>
+    <role role="Data">
+      <rules>
+        <include>
+          <objectSet>
+	          <pattern type="File">%FOLDERID_LocalAppDataLow%\Google\GoogleEarth [*]</pattern>
+          </objectSet>
+        </include>
+      </rules>
+    </role>
+  </component>
+<!-- This component migrates Google Earth settings -->
+  <component type="Documents" context="User">
+    <displayName>Move Google Earth settings</displayName>
+    <role role="Data">
+      <rules>
+        <include>
+          <objectSet>
+	          <pattern type="File">%FOLDERID_LocalAppDataLow%\Google\GoogleEarth [*]</pattern>
+          </objectSet>
+        </include>
+      </rules>
+    </role>
+  </component>
+</migration>
